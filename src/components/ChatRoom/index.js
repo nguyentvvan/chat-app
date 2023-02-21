@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Row } from 'antd';
 
 import Sidebar from './Sidebar';
+import ChatWindow from './ChatWindow';
 
 function ChatRoom() {
 	return (
@@ -11,7 +12,7 @@ function ChatRoom() {
 					<Sidebar />
 				</Col>
 				<Col span={18}>
-					ChatWindow
+					<ChatWindow />
 				</Col>
 			</Row>
 		</div>

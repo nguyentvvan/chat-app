@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Avatar, Button, Typography } from 'antd';
 
+import { auth } from '../../firebase/config';
+
 const WrapperStyle = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -21,7 +23,12 @@ export default function UserInfo() {
 				<Avatar>V</Avatar>
 				<Typography.Text className='username'>Van Nguyen</Typography.Text>
 			</div>
-			<Button ghost>Log out</Button>
+			<Button
+				ghost
+				onClick={() => auth.signOut()}
+			>
+				Log out
+			</Button>
 		</WrapperStyle>
 	)
 }

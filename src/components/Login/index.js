@@ -1,18 +1,29 @@
 import React from 'react';
 import { Row, Col, Typography, Button } from 'antd';
 import firebase, { auth } from '../../firebase/config';
+import { addDocument } from '../../firebase/services';
 
 const fbProvider = new firebase.auth.FacebookAuthProvider();
-// const ggProvider = new firebase.auth.GoogleAuthProvider();
+const ggProvider = new firebase.auth.GoogleAuthProvider();
 
 export default function Login() {
-	const handleGoogleLogin = () => {
-    // auth.signInWithPopup(ggProvider);
-  };
+	const handleLogin = async (provider) => {
+    const data = await auth.signInWithPopup(provider);
 
-	const handleFacebookLogin = async () => {
-    const data = await auth.signInWithPopup(fbProvider);
-		console.log({data});
+		const {
+			additionalUserInfo,
+			user,
+		} = data;
+
+		if (additionalUserInfo.isNewUser) {
+			addDocument('users', {
+				displayName: user.displayName,
+				email: additionalUserInfo.profile.email,
+				photoURL: user.photoURL,
+				uid: user.uid,
+				providerId: additionalUserInfo.providerId,
+			});
+		}
   };
 
 	return (
@@ -22,13 +33,13 @@ export default function Login() {
 					<Typography.Title style={{ textAlign: 'center' }} level={3}>Fun chat</Typography.Title>
 					<Button 
 						style={{ width: '100%', marginBottom: 5 }}
-						onClick={handleGoogleLogin}
+						onClick={() => handleLogin(ggProvider)}
 					>
 						Login with Google
 					</Button>
 					<Button
 						style={{ width: '100%' }}
-						onClick={handleFacebookLogin}
+						onClick={() => handleLogin(fbProvider)}
 					>
 						Login with Facebook
 					</Button>

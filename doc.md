@@ -13,9 +13,11 @@ Design layout and config firebase, fb app
 push code into github
 
 Config firestore in firebase (create db in firestore)
+firebase uses collections
+
 
 =======================
-# environment variables
+# environment variables (have to add these in the vercel)
 1. Add prefix `REACT_APP_` on React environment variables.
 apiKey: process.env.REACT_APP_API_KEY
 
@@ -33,3 +35,25 @@ REACT_APP_API_KEY=Ach2o1invVocSn25FcQhash209,
 REACT_APP_API_KEY="Ach2o1invVocSn25FcQhash209",
 REACT_APP_API_KEY="Ach2o1invVocSn25FcQhash209"
 =======================
+# using vercel
+- add env
+- add firebase Authorized domains
+
+==================
+
+user.additionalUserInfo.isNewUser : user is already existing in db?
+
+useEffect(() => {
+		// every time collection users 's changed
+		db.collection('users').onSnapshot((snapshot) => {
+			const data = snapshot.docs.map(doc => ({
+				...doc.data(),
+				id: doc.id,
+			}));
+
+			console.log({data, snapshot, docs: snapshot.docs});
+		});
+	}, [])
+
+===================
+# set up firebase emulator

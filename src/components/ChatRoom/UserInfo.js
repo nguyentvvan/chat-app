@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { Avatar, Button, Typography } from 'antd';
 
 import { auth, db } from '../../firebase/config';
+import { AuthContext } from '../../context/AuthProvider'
 
 const WrapperStyle = styled.div`
 	display: flex;
@@ -29,13 +30,20 @@ export default function UserInfo() {
 			console.log({data, snapshot, docs: snapshot.docs});
 		});
 	}, [])
-	
+
+	const { user } = useContext(AuthContext);
+	const {
+		displayName,
+		photoURL,
+	} = user;
 
 	return (
 		<WrapperStyle>
 			<div>
-				<Avatar>V</Avatar>
-				<Typography.Text className='username'>Van Nguyen</Typography.Text>
+				<Avatar src={photoURL}>
+					{photoURL ? photoURL : displayName?.charAt(0)?.toUpperCase()}
+				</Avatar>
+				<Typography.Text className='username'>{displayName}</Typography.Text>
 			</div>
 			<Button
 				ghost

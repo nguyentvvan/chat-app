@@ -57,3 +57,32 @@ useEffect(() => {
 
 ===================
 # set up firebase emulator
+npm i -g firebase-tools
+create folder ./emulators
+cd emulators
+firebase login
+firebase init
+<select features emulator, firestore> enter
+<select use an existing project> enter
+<select our app> enter
+<enter file to store rule> enter (use default)
+<select firestore rules: Authentication, Firestore> enter
+<enter port for authentication> enter (use default 9099)
+<enter port for firestore> enter (use default 8080)
+<enable emulator UI> Y
+<enter port for  UI> enter (use default any)
+<download emulator> Y
+
+firebase emulators:start
+(install java)
+
+fix config file
+```javascript
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+auth.useEmulator('http://127.0.0.1:9099');
+if (window.location.hostname === 'localhost') {
+  db.useEmulator('127.0.0.1', 8080);
+}
+```

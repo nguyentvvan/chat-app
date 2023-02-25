@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Avatar, Button, Typography } from 'antd';
 
@@ -18,19 +18,6 @@ const WrapperStyle = styled.div`
 `;
 
 export default function UserInfo() {
-
-	useEffect(() => {
-		// every time collection users 's changed
-		db.collection('users').onSnapshot((snapshot) => {
-			const data = snapshot.docs.map(doc => ({
-				...doc.data(),
-				id: doc.id,
-			}));
-
-			console.log({data, snapshot, docs: snapshot.docs});
-		});
-	}, [])
-
 	const { user } = useContext(AuthContext);
 	const {
 		displayName,

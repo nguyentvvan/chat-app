@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components';
 import { Collapse, Typography, Button } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
+
+import { AppContext } from '../../context/AppProvider';
 
 // &&&: & is current class, &&& to increase priority
 const PanelStyle = styled(Collapse.Panel)`
@@ -27,12 +29,28 @@ const LinkStyle = styled(Typography.Link)`
 `;
 
 export default function RoomList() {
+	/* get rooms: move to AppProvider to use it globally
+	const { user: { uid } } = useContext(AuthContext);
+
+	// object condition will be changed every re-render
+	// => the useEffect will re-run unnecessary 
+	// => use useMemo
+	const roomsCondition = useMemo(() => ({
+		fieldName: 'members',
+		operator: 'array-contains',
+		compareValue: uid,
+	}), [uid]);
+
+	const rooms = useFirestore('rooms', roomsCondition);
+	*/
+	const { rooms } = useContext(AppContext);
+
 	return (
 		<Collapse ghost defaultActiveKey='1'>
 			<PanelStyle header='Room List' key='1'>
-				<LinkStyle>Room 1</LinkStyle>
-				<LinkStyle>Room 2</LinkStyle>
-				<LinkStyle>Room 3</LinkStyle>
+				{rooms.map((room) => 
+					<LinkStyle key={room.id}>{room.name}</LinkStyle>
+				)}
 				<Button
 					type='text'
 					className='add-room'

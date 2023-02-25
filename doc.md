@@ -86,3 +86,10 @@ if (window.location.hostname === 'localhost') {
   db.useEmulator('127.0.0.1', 8080);
 }
 ```
+
+write custom hook to use firestore:
+- create folder ./src/hooks
+
+create rooms collection in firestore db
+
+create app provider for storing rooms globally

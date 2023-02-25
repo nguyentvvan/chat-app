@@ -5,15 +5,18 @@ import Login from './components/Login';
 import ChatRoom from './components/ChatRoom';
 
 import AuthProvider from './context/AuthProvider';
+import { AppProvider } from './context/AppProvider';
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Switch>
-          <Route component={Login} path='/login' />
-          <Route component={ChatRoom} path='/' />
-        </Switch>
+        <AppProvider>
+          <Switch>
+            <Route component={Login} path='/login' />
+            <Route component={ChatRoom} path='/' />
+          </Switch>
+        </AppProvider>
       </AuthProvider>
     </BrowserRouter>
   );

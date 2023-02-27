@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Typography, Button } from 'antd';
 import firebase, { auth } from '../../firebase/config';
-import { addDocument } from '../../firebase/services';
+import { addDocument, generateKeywords } from '../../firebase/services';
 
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 const ggProvider = new firebase.auth.GoogleAuthProvider();
@@ -22,6 +22,7 @@ export default function Login() {
 				photoURL: user.photoURL,
 				uid: user.uid,
 				providerId: additionalUserInfo.providerId,
+				keywords: generateKeywords(user.displayName?.toLowerCase()),
 			});
 		}
   };

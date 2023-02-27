@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Collapse, Typography, Button } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
@@ -43,18 +43,28 @@ export default function RoomList() {
 
 	const rooms = useFirestore('rooms', roomsCondition);
 	*/
-	const { rooms } = useContext(AppContext);
+	const {
+		rooms,
+		setIsAddRoomVisible,
+		setSelectedRoomId,
+	} = useContext(AppContext);
 
 	return (
 		<Collapse ghost defaultActiveKey='1'>
 			<PanelStyle header='Room List' key='1'>
 				{rooms.map((room) => 
-					<LinkStyle key={room.id}>{room.name}</LinkStyle>
+					<LinkStyle
+						key={room.id}
+						onClick={() => setSelectedRoomId(room.id)}
+					>
+						{room.name}
+					</LinkStyle>
 				)}
 				<Button
 					type='text'
 					className='add-room'
 					icon={<PlusSquareOutlined />}
+					onClick={() => setIsAddRoomVisible(true)}
 				>
 					Add new room
 				</Button>

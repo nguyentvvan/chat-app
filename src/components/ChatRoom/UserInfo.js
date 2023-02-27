@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Avatar, Button, Typography } from 'antd';
 
-import { auth, db } from '../../firebase/config';
+import { auth } from '../../firebase/config';
 import { AuthContext } from '../../context/AuthProvider'
 
 const WrapperStyle = styled.div`
